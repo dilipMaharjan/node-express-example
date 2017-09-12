@@ -3,6 +3,11 @@ var bodyParser=require('body-parser');
 var path=require('path');
 var app=express();
 
+//set view engine
+
+app.set('view engine','ejs');
+app.set('views',path.join(__dirname,'views'));
+
 //dummy data
 const person=[
   {
@@ -37,7 +42,9 @@ app.use(express.static(path.join(__dirname,'public')));
 
 //making get request
 app.get('/',(req,res)=>{
-  res.json(person);
+  res.render('index',{
+    title:"Users"
+  });
 });
 
 //listening to port 2017
