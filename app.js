@@ -1,9 +1,23 @@
 var express=require('express');
 var bodyParser=require('body-parser');
 var path=require('path');
-
 var app=express();
 
+//dummy data
+const person=[
+  {
+    name:"Juan",
+    age:26
+  },
+  {
+    name:"Nick",
+    age:21
+  },
+  {
+    name:"Dilip",
+    age:28
+  },
+  ];
 //custom middleware
 
 var logger=(req,res,next)=>{
@@ -14,9 +28,16 @@ next();
 //need to use logger to be able to use it
 app.use(logger);
 
+//using body parser middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}))
+
+//setting up path to static files
+app.use(express.static(path.join(__dirname,'public')));
+
 //making get request
 app.get('/',(req,res)=>{
-  res.send('Node Express App started at port 2017');
+  res.json(person);
 });
 
 //listening to port 2017
