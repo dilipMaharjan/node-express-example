@@ -9,7 +9,7 @@ app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 
 //dummy data
-const person=[
+const persons=[
   {
     name:"Juan",
     age:26
@@ -43,7 +43,8 @@ app.use(express.static(path.join(__dirname,'public')));
 //making get request
 app.get('/',(req,res)=>{
   res.render('index',{
-    title:"Users"
+    title:"Users",
+    users:persons
   });
 });
 
