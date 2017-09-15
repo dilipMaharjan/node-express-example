@@ -1,28 +1,14 @@
 var express=require('express');
 var bodyParser=require('body-parser');
 var path=require('path');
+var mongojs=require('mongojs');
 var app=express();
-
+var db=mongojs('customerapp',['users']);
 //set view engine
 
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 
-//dummy data
-const users=[
-  {
-    name:"Juan",
-    age:26
-  },
-  {
-    name:"Nick",
-    age:21
-  },
-  {
-    name:"Dilip",
-    age:28
-  },
-  ];
 //custom middleware
 
 var logger=(req,res,next)=>{
@@ -42,6 +28,18 @@ app.use(express.static(path.join(__dirname,'public')));
 
 //making get request
 app.get('/',(req,res)=>{
+db.users.find(function(err,docs){
+  res.render('index',{
+    title:"Users",
+    users:docs
+  });
+})
+
+});
+app.post('/add',(req,res)=>{
+  var name =req.body.name;
+  var age =req.body.age;
+  users.push({'name':name,'age':age});
   res.render('index',{
     title:"Users",
     users:users

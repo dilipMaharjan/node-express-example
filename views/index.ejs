@@ -4,6 +4,21 @@
 
 </p>
 <div>
+  <form action="/add" method="post">
+  <p>
+    <label>Name</label>
+      <input type="text" name="name" />
+  </p>
+  <p>
+    <label>Age</label>
+      <input type="text" name="age" />
+  </p>
+  <p>
+    <input type="submit" value="add" />
+  </p>
+  </form>
+</div>
+<div>
   <ul>
     <% users.forEach(function(user){%>
     <li>
