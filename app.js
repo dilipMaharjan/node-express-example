@@ -39,11 +39,12 @@ db.users.find(function(err,docs){
 app.post('/add',(req,res)=>{
   var name =req.body.name;
   var age =req.body.age;
-  users.push({'name':name,'age':age});
-  res.render('index',{
-    title:"Users",
-    users:users
-  });
+  db.users.insert({name:name,age:age},function(err,result){
+    if(err){
+      console.log('Error', err);
+    }
+    res.redirect('/');
+  })
 });
 
 //listening to port 2017
